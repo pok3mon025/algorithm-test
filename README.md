@@ -4,3 +4,5 @@
 2022 KAKAO BLIND 
 * k진수에서 소수 개수 구하기: programmers.kakaoblind2022.prime
 * 신고 결과 받기: programmers.kakaoblind2022.block
+* 양궁대회: programmers.kakaoblind2022.archery
+
