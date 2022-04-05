@@ -1,6 +1,9 @@
 package programmers.devmatching2021.sales;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,76 +25,65 @@ public class Main {
     }
 
     public static int[] solution(String[] enroll, String[] referral, String[] seller, int[] amount) {
-        Tree sales = new Tree(enroll.length, enroll, referral);
+        int[] answer = new int[enroll.length];
+        Map<String, Sales> childMap = new HashMap<>();
+        Map<String, Sales> parentMap = new HashMap<>();
 
-        for (int i=0; i<seller.length; i++) {
-            if (amount[i] == 0)
-                continue;
+        childMap.put("-", new Sales("-"));
 
-            sales.calAmt(seller[i], amount[i]);
+        for(int i=0; i<enroll.length; i++) {
+            childMap.put(enroll[i], new Sales(enroll[i]));
+            parentMap.put(enroll[i], childMap.getOrDefault(referral[i], null));
         }
 
-        return Arrays.stream(sales.nodes).map( x -> x.sumAmt).mapToInt(Integer::intValue).skip(1).toArray();
-    }
-
-    public static class Node {
-        String name;
-        int sumAmt;
-        Node parent;
-
-        public Node(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class Tree {
-        Node[] nodes;
-
-        public Tree (int size, String[] name, String[] parent) {
-            nodes = new Node[size+1];
-            // center
-            nodes[0] = new Node("center");
-
-            for (int i=1; i<=size; i++) {
-                nodes[i] = new Node(name[i-1]);
-            }
-
-            for (int i=1; i<=size; i++) {
-                String parentName = parent[i-1];
-
-                if ("-".equals(parentName)) {
-                    nodes[i].parent = nodes[0];
-                    continue;
-                }
-
-                nodes[i].parent = getNode(parentName);
-            }
-        }
-
-        public Node getNode(String name) {
-            return  Arrays.stream(nodes).filter(n -> name.equals(n.name)).findFirst().get();
-        }
-
-        public void calAmt(String sellerName, int amount) {
-            Node target = getNode(sellerName);
-            int amt = 100 * amount;
+        // 판매 수익 계산
+        for(int i=0; i<seller.length; i++) {
+            String sellerName = seller[i];
+            int amt = amount[i] * 100;
 
             while (true) {
-                if (amt == 0 || "center".equals(target.name))
-                    break;
-
-                int parentAmt = (int)(amt * 0.1);
-
-                if (parentAmt < 1) {
-                    target.sumAmt += amt;
+                if (parentMap.get(sellerName) == null || amt < 1) {
+                    childMap.get(sellerName).amount += amt;
                     break;
                 }
 
-                target.sumAmt += amt - parentAmt;
-                amt = parentAmt;
-                target = target.parent;
-            }
+                int parentAmt = (int)(amt * 0.1);
+                amt = amt - parentAmt;
+                childMap.get(sellerName).amount += amt;
 
+                amt = parentAmt;
+                sellerName = parentMap.get(sellerName).name;
+            }
+        }
+
+        for (int i=0; i<enroll.length; i++) {
+            answer[i] = childMap.get(enroll[i]).amount;
+        }
+
+        return answer;
+    }
+
+    public static class Sales {
+        int amount;
+        String name;
+
+        public Sales(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+            Sales sales = (Sales)o;
+            return Objects.equals(name, sales.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
         }
     }
 }
