@@ -8,6 +8,9 @@
 * 양과 늑대: programmers.kakaoblind2022.sheepnwolf
 * 파괴되지 않은 건물: programmers.kakaoblind2022.building
 
+2021 KAKAO BLIND
+* 신규 아이디 추천: programmers.kakaoblind2021.id
+
 2021 Dev-Matching 웹 백엔드 개발자(상반기)
 * 로또의 최고 순위와 최저 순위: programmers.devmatching2021.lotto
 * 행렬 테두리 회전하기: programmers.devmatching2021.rotation
