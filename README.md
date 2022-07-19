@@ -17,4 +17,7 @@
 * 다단계 칫솔 판매: programmers.devmatching2021.sales
 
 백준
-* 10815번 숫자 카드: 
+* No.1655 가운데를 말해요: programmers.baekjoon.center
+* No.10815번 숫자 카드: programmers.baekjoon.numbercard
+
+
