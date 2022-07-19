@@ -20,6 +20,6 @@
 * No.1655 가운데를 말해요: programmers.baekjoon.center
 * No.10815 숫자 카드: programmers.baekjoon.numbercard
 * No.10816 숫자 카드2: programmers.baekjoon.numbercard2
-
+* No.14425 문자열 집합: programmers.baekjoon.stringset
 
 
