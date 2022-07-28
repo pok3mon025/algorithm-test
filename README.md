@@ -23,5 +23,6 @@
 * No.14425 문자열 집합: programmers.baekjoon.stringset
 * No.11478 서로 다른 부분 문자열의 개수: programmers.baekjoon.diffstrcnt
 * No.1764  듣보잡: programmers.baekjoon.unknown
-
+* No.5086  배수와약수: programmers.baekjoon.mandf
+* No.2609  최대공약수와 최소공배수: programmers.baekjoon.gcdandlcm
 
